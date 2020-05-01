@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Radviz D3</title>
+      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+      <script type="text/javascript" src="static/Javascript/radviz.js"></script>
+  </head>
+  <body>
+    <div id="title">      
+    </div>
+
+    <div id="csvInput">
+      <div id="csvInputText">
+        <form method=post action="/Load_dataset" enctype=multipart/form-data>
+      PLEASE ENTER THE NAME OF THE DATASET: <input type="text" name="dataset_name" id="dataset_name" size="80px" value="file" >
+      Please enter the number of clusters:<input type="text" name="no_of_clusters" id="no_of_clusters" size="10px">
+      <input type="submit" class="button" value="Load_dataset">
+
+    </form>
+      <button type="button" class="button" onclick="radviz()">Obtain Radviz</button>
+      </div>
+    </div>
+
+    <div class="container">    
+       <div class="column-center">
+         <div id="visDiv">
+         </div>
+       </div>
+
+       
+      <div class="column-left">
+         <form action="setVariables" id="setVars" class="displayStyle">
+           <p style="margin-bottom:10px" class="title2"> <b>Select Variables</b> </p>
+               <table>
+            <tr>
+               <td id="numeric" class="selectionAlignment"></td>
+            </tr>
+         </table>
+         </form>
+
+         <form action="setColorVar" id="setColorVar" class="displayStyle">
+           <p style="margin-bottom:15px"> <b>Color by:</b> </p>
+               <table>
+            <tr>
+               <td id="colorVar" class="selectionAlignment">
+               <g><input type="radio" value="-1" label="None" name="colorAttribute" checked></input>
+                  <text>None</text>
+                  <p></p>
+                </g>
+                <g id="colorGroup"></g>
+                </td>
+            </tr>
+         </table>
+         </form>
+         
+         <div id="tip" class="left">
+          <b><h2>correlation matrix</h2></b>
+          <div class="hidden"  id="image">
+          </div>
+
+       </div>
+
+       <div id="clustering">
+         <form method=POST action="javascript:cluster()">
+          <input type="radio" id="options" name="options" value="color-based" > color-based<br>
+          <input type="radio" id="options" name="options" value="cluster-based"> cluster-based<br>
+          <input type="submit" value="submit">
+        </form>
+        <form action="javascript:new1()">
+          
+          <input type="submit" value="generate new cluster">
+        </form>
+
+
+
+       </div>
+
+  
+  <div id="info" class="hidden">
+    <div class="tooltipText" style="text-align:left">
+      <g id="nonNumeric"></g>
+      <g id="colorCategory"></g>
+      <g id="numeric"></g>
+    </div>
+  </div>
+
+    <script  type=text/javascript src="{{ url_for('static', filename='Javascript/radviz.js') }}"> </script>
+
+    
+  </body>
+</html>
